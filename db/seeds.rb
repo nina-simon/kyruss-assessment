@@ -1,7 +1,26 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+questionnaire = Questionnaire.create!(
+  title: "PHQ-2 Patient Depression Screening",
+  description: "A quick screening tool for depression."
+)
+
+questionnaire.questions.create!(
+  text: "Little interest or pleasure in doing things?",
+  position: 1,
+  options: [
+    { text: "Not at all", value: 0 },
+    { text: "Several days", value: 1 },
+    { text: "More than half the days", value: 2 },
+    { text: "Nearly every day", value: 3 }
+  ]
+)
+
+questionnaire.questions.create!(
+  text: "Feeling down, depressed, or hopeless?",
+  position: 2,
+  options: [
+    { text: "Not at all", value: 0 },
+    { text: "Several days", value: 1 },
+    { text: "More than half the days", value: 2 },
+    { text: "Nearly every day", value: 3 }
+  ]
+)
