@@ -15,7 +15,7 @@ RSpec.feature "A patient checks into the app" do
 
     click_on "Start check in"
 
-    expect(page).to have_content "Please complete all of the steps on this page"
+    expect(page).to have_content "Welcome to your check-in"
 
     click_on "Start PHQ screener"
 

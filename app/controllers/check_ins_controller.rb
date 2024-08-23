@@ -1,7 +1,7 @@
 class CheckInsController < ApplicationController
-  before_action :fetch_questionnaire, only: [:new, :create]
+  before_action :fetch_questionnaire, only: [:new, :create, :show, :update]
   before_action :set_check_in, only: [:show, :update]
-  # before_action :fetch_patient_data, only: :new
+  before_action :fetch_patient_data, only: :show
 
   def new
     @check_in = CheckIn.new
@@ -20,11 +20,28 @@ class CheckInsController < ApplicationController
   end
 
   def show
+    if @check_in.high_score?
+      @remaining_questions = @questionnaire.questions.offset(2)
+    end
   end
 
   def update
+    additional_responses = params[:check_in][:responses]&.to_unsafe_h || {}
+
+    if additional_responses.any?
+      @check_in.responses.merge!(additional_responses)
+      if @check_in.save
+        flash[:notice] = t('check_ins.additional_responses_saved')
+      else
+        flash[:alert] = t('check_ins.responses_save_error')
+      end
+    else
+      flash[:alert] = t('check_ins.no_responses_provided')
+    end
+  
     redirect_to new_check_in_path
   end
+  
 
   private
 
@@ -37,8 +54,7 @@ class CheckInsController < ApplicationController
   end
 
   def fetch_patient_data
-    # TODO: Need to make it dynamic
-    patient_data = FetchPatientData.new('1').call
+    patient_data = FetchPatientData.new(@check_in.patient_id).call
     @patient_name = "#{patient_data['firstName']} #{patient_data['lastName']}" if patient_data
   end
 

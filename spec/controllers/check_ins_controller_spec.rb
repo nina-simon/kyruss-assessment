@@ -70,7 +70,7 @@ RSpec.describe CheckInsController, type: :controller do
       check_in = create(:check_in, id: 1)
       allow(CheckIn).to receive(:find).with("1").and_return(check_in)
 
-      put :update, params: { id: 1 }
+      put :update, params: { id: 1, check_in: { responses: { "some_question_id" => "1" } } }
 
       expect(CheckIn).to have_received(:find).with("1")
     end
@@ -78,9 +78,7 @@ RSpec.describe CheckInsController, type: :controller do
     it "redirects to the new check_in page" do
       check_in = create(:check_in, id: 1)
       allow(CheckIn).to receive(:find).with("1").and_return(check_in)
-
-      put :update, params: { id: 1 }
-
+      put :update, params: { id: 1, check_in: { responses: { "some_question_id" => "1" } } }
       expect(response).to redirect_to new_check_in_path
     end
   end

@@ -15,11 +15,11 @@ class CheckInResponseProcessor
   private
 
   def find_option_value(option_value)
-    @questionnaire.questions.each do |question|
-      option = question.options.find { |opt| opt['value'] == option_value.to_i }
-      
-      return option['value'] if option
-    end
-    nil
+    all_options = @questionnaire.questions.flat_map(&:options)
+  
+    option = all_options.find { |opt| opt['value'] == option_value.to_i }
+  
+    option ? option['value'] : nil
   end
+  
 end
