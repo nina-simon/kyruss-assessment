@@ -58,6 +58,8 @@ gem 'i18n-tasks'
 gem 'rack-canonical-host'
 gem 'recipient_interceptor'
 gem 'title'
+gem "tailwindcss-rails"
+
 
 group :development, :test do
   gem 'awesome_print'
