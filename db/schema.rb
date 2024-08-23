@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_10_000847) do
+ActiveRecord::Schema.define(version: 2024_08_22_185147) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,6 +19,27 @@ ActiveRecord::Schema.define(version: 2018_07_10_000847) do
     t.string "patient_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.jsonb "responses", default: "{}", null: false
+    t.index ["responses"], name: "index_check_ins_on_responses", using: :gin
   end
 
+  create_table "questionnaires", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "questions", force: :cascade do |t|
+    t.string "text", null: false
+    t.bigint "questionnaire_id", null: false
+    t.integer "position", null: false
+    t.jsonb "options", default: "[]", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["options"], name: "index_questions_on_options", using: :gin
+    t.index ["questionnaire_id"], name: "index_questions_on_questionnaire_id"
+  end
+
+  add_foreign_key "questions", "questionnaires"
 end

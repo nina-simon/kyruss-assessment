@@ -30,4 +30,25 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  check_ins:
+    greeting: "Hello, %{name}! Welcome to your check-in."
+    additional_responses_saved: "Additional responses have been saved."
+    responses_save_error: "There was an issue saving your responses. Please try again."
+    no_responses_provided: "No additional responses were provided."
+    screening_message:
+      additional_needed: "Additional screening is recommended."
+      no_additional_needed: "No additional screening needed."
+    new:
+      title: "Welcome to the Check-In Process"
+      instruction: "Over the past 2 weeks, how often have you been bothered by any of the following problems?"
+    show:
+      please_complete_steps: "Please complete all of the steps on this page:"
+      additional_questions: "Additional Questions"
+      additional_questions_instruction: "Based on your previous answers, we recommend completing the following additional questions:"
+      submit_additional_responses: "Submit Additional Responses"
+      start_phq_screener: "Start PHQ screener"
+  errors:
+    not_found: "Record not found."
+    bad_request: "Required parameter missing."
+    unexpected_error: "An unexpected error occurred. Please try again later."
+
