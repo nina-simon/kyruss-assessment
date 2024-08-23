@@ -31,6 +31,7 @@
 
 en:
   check_ins:
+    greeting: "Welcome, %{name}!"
     additional_screening_recommended: "Additional screening is recommended."
     no_additional_screening_needed: "No additional screening needed."
   errors:

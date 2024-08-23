@@ -1,6 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe CheckInsController, type: :controller do
+  before do
+    stub_request(:get, "https://dummyjson.com/users/1").
+      to_return(status: 200, body: { firstName: "John", lastName: "Doe" }.to_json, headers: { 'Content-Type' => 'application/json' })
+  end
+
   describe "routing" do
     it { should route(:get, "/check_ins/new").to(action: :new) }
     it { should route(:post, "/check_ins").to(action: :create) }

@@ -1,6 +1,7 @@
 class CheckInsController < ApplicationController
   before_action :fetch_questionnaire, only: [:new, :create]
   before_action :set_check_in, only: [:show, :update]
+  # before_action :fetch_patient_data, only: :new
 
   def new
     @check_in = CheckIn.new
@@ -33,6 +34,12 @@ class CheckInsController < ApplicationController
 
   def set_check_in
     @check_in = CheckIn.find(params[:id])
+  end
+
+  def fetch_patient_data
+    # TODO: Need to make it dynamic
+    patient_data = FetchPatientData.new('1').call
+    @patient_name = "#{patient_data['firstName']} #{patient_data['lastName']}" if patient_data
   end
 
   def check_in_params
