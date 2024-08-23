@@ -12,7 +12,7 @@ module ErrorHandler
 
   def handle_not_found(exception)
     log_error(exception)
-    redirect_to root_path, alert: "Record not found."
+    redirect_to root_path, alert: I18n.t('errors.not_found')
   end
 
   def handle_invalid_record(exception)
@@ -23,12 +23,12 @@ module ErrorHandler
 
   def handle_parameter_missing(exception)
     log_error(exception)
-    redirect_to root_path, alert: "Required parameter missing."
+    redirect_to root_path, alert: I18n.t('errors.bad_request')
   end
 
   def handle_standard_error(exception)
     log_error(exception)
-    redirect_to root_path, alert: "An unexpected error occurred. Please try again later."
+    redirect_to root_path, alert: I18n.t('errors.unexpected_error')
   end
 
   def log_error(exception)
