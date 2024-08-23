@@ -2,6 +2,21 @@
 
 <p>Over the past 2 weeks, how often have you been bothered by any of the following problems?</p>
 
-<%= form_for(:check_in, url: check_ins_path) do |f| %>
-  <%= f.submit "Start check in" %>
+<%= form_with model: @check_in, local: true do |form| %>
+  <% if @questionnaire.present? && @questionnaire.questions.any? %>
+    <% @questionnaire.questions.limit(2).each do |question| %>
+      <div class="field">
+        <%= form.label "responses[#{question.id}]", question.text %>
+        <%= form.select "responses[#{question.id}]", options_for_select(question.options.map { |option| [option['text'], option['value']] }) %>
+      </div>
+    <% end %>
+  <% else %>
+    <p>No questions available for this questionnaire.</p>
+  <% end %>
+
+  <%= form.hidden_field :patient_id, value: 1 %>
+
+  <div class="actions">
+    <%= form.submit "Start check in" %>
+  </div>
 <% end %>
